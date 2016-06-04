@@ -1,0 +1,29 @@
+<!DOCTYPE html/>
+<html>
+    <header>
+        <script src="draw.js"></script>
+        <script src="radialSearch.js"></script>
+    </header>
+    <body>
+        <div>
+            <div>Start:
+                <label>ring<input id="startRing" type="text" value="5"/></label>
+                <label>sector<input id="startSector" type="text" value="11"/></label>
+            </div>
+            <div>Finish:
+                <label>ring<input id="finishRing" type="text" value="10"/></label>
+                <label>sector<input id="finishSector" type="text" value="9"/></label>
+            </div>
+            <div>
+                <label>Trees:<textarea id="trees" placeholder="Format: ring1,sector1 pairs separated by new line characters" cols="100" rows="3">
+9,14
+8,5</textarea></label>
+            </div>
+            <div><button id="startSearch">Start search</button></div>
+        </div>
+        <div id="searchResult"></div>
+        <canvas id="canvas" width="850" height="850"></canvas>
+        
+        <script src="demo.js"></script>
+    </body>
+</html>
