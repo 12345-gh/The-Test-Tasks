@@ -1,0 +1,15 @@
+
+.inputData {
+    float:right;
+}
+
+#searchResult {
+    min-width: 400px;
+}
+
+#canvasToolTip {
+    border: 1px solid #ababab;
+    padding: 5px;
+    background-color: white;
+    margin-top: 25px;
+}

@@ -1,32 +1,25 @@
-/*global RadialDepthFirstToadSearch, DataPrinter, document, alert*/
+/*global RadialBreadthFirstToadSearch, DataPrinter, document, alert*/
 /*Demo*/
 //var inputData = {
 //    start: {
 //        ring: 7,
-//        segment: 11
+//        sector: 11
 //    },
 //    finish: {
 //        ring: 10,
-//        segment: 9
+//        sector: 9
 //    },
 //    trees: [
 //        {
 //            ring: 9,
-//            segment: 14
+//            sector: 14
 //        },
 //        {
 //            ring: 8,
-//            segment: 5
+//            sector: 5
 //        }
 //    ]
 //};
-//
-//var dataPrinter = new DataPrinter({
-//    radius: 400
-//});
-//dataPrinter.drawGrid();
-//dataPrinter.drawInputData(inputData);
-//
 var getInt = function(elementId)  {
     var value = +document.getElementById(elementId).value;
     return getIntAndCheck(value, 'Element with id ' + elementId);
@@ -41,16 +34,22 @@ var getIntAndCheck = function(value, errorText) {
     throw new Error();
 };
 
-var parseData = function() {
+var getBool = function(elementId)  {
+    return !!document.getElementById(elementId).checked;
+};
+
+var parseView = function() {
     var data = {
         start: {
             ring: getInt('startRing'),
-            segment: getInt('startSector')
+            sector: getInt('startSector')
         },
         finish: {
             ring: getInt('finishRing'),
-            segment: getInt('finishSector')
-        }
+            sector: getInt('finishSector')
+        },
+        stepDelay: getInt('stepDelay'),
+        visualizeSearch: getBool('visualizeSearch')
     };
     data.trees = parseTreeData();
     return data;
@@ -65,44 +64,55 @@ var parseTreeData = function() {
             var arr = line.split(',');
             data.push({
                 ring: getIntAndCheck(+arr[0].trim(), 'trees textarea ring part  for pair ' + line),
-                segment: getIntAndCheck(+arr[1].trim(), 'trees textarea section part  for pair ' + line)
+                sector: getIntAndCheck(+arr[1].trim(), 'trees textarea section part  for pair ' + line)
             });
         }
     }
     return data;
 };
 
+var dataPrinter = new DataPrinter({
+    radius: 400,
+    tooltipEl: document.getElementById('canvasToolTip')
+});
+
 var startBtn = document.getElementById('startSearch');
 startBtn.onclick = function() {
-    var inputData = parseData();
-    var dataPrinter = new DataPrinter({
-        radius: 400
-    });
-    dataPrinter.drawGrid();
-    dataPrinter.drawInputData(inputData);
-    
-    var searcher = new RadialDepthFirstToadSearch(inputData);
-    searcher.search();
+    var model = parseView();
 
-    var textEl = document.getElementById('searchResult');
-    if (!searcher.success) {
-        textEl.textContent = 'No Path Found';
+    dataPrinter.drawGrid();
+    dataPrinter.drawInputData(model);
+    
+    var searcher = new RadialBreadthFirstToadSearch(model);
+    searcher.stepPrinter = function(node) {
+        dataPrinter.colorSegment(node.ring, node.sector, node.color);
+    };
+    searcher.finished = function() {
+        var textEl = document.getElementById('searchResult');
+        if (!searcher.success) {
+            textEl.textContent = 'No Path Found';
+        } else {
+            var path = searcher.getPath();
+            textEl.textContent = 'Path Found: ' + JSON.stringify(path);
+            dataPrinter.drawPath(path);
+        }
+        
+    };
+    if(model.visualizeSearch) {
+        searcher.search_with_interval(model.stepDelay);
     } else {
-        var path = searcher.getPath();
-        textEl.textContent = 'Path Found: ' + JSON.stringify(path);
-        dataPrinter.drawPath(path);
+        searcher.search();
     }
+
 };
 
+var printFirstResults = function() {
+    startBtn.click();
+};
+if (document.readyState === 'complete') {
+    printFirstResults();
+} else {
+    document.addEventListener( 'DOMContentLoaded', printFirstResults, false );
+}
 
-//var searcher = new RadialDepthFirstToadSearch(inputData);
-//searcher.search();
-//
-//var textEl = document.getElementById('searchResult');
-//if (!searcher.success) {
-//    textEl.textContent = 'No Path Found';
-//} else {
-//    var path = searcher.getPath();
-//    textEl.textContent = 'Path Found: ' + JSON.stringify(path);
-//    dataPrinter.drawPath(path);
-//}
+

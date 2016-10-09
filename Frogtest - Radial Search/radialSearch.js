@@ -1,19 +1,19 @@
-/*global console*/
+/*global console, setTimeout, clearTimeout*/
 /*
 Params example
 {
     start: {
         ring: 1,
-        segment: 5
+        sector: 5
     },
     finish: {
         ring: 6,
-        segment: 10
+        sector: 10
     },
     trees: [
         {
             ring: 6,
-            segment: 10
+            sector: 10
         }
     ]
 }
@@ -21,27 +21,30 @@ Params example
 
 */
 
-function RadialDepthFirstToadSearch(params) {
+function RadialBreadthFirstToadSearch(params) {
+    this.GREY = 'rgba(204, 204, 204, 0.6)';
+    this.BLACK = 'rgba(100, 100, 100, 0.6)';
     this.startNode = params.start;
     this.finishNode = params.finish;
     this.trees = params.trees || [];
     this.stack = [];
+    this.queue = [];
     this.nodesMap = {};
 }
 
-RadialDepthFirstToadSearch.prototype.matches = function(node) {
+RadialBreadthFirstToadSearch.prototype.matches = function(node) {
     return this.equal(node, this.finishNode);
 };
 
-RadialDepthFirstToadSearch.prototype.equal = function(firstNode, secondNode) {
-    return (firstNode.ring === secondNode.ring) && (firstNode.segment === secondNode.segment);
+RadialBreadthFirstToadSearch.prototype.equal = function(firstNode, secondNode) {
+    return (firstNode.ring === secondNode.ring) && (firstNode.sector === secondNode.sector);
 };
 
-RadialDepthFirstToadSearch.prototype.isValidNode = function(node) {
+RadialBreadthFirstToadSearch.prototype.isValidNode = function(node) {
     return this.isInBorders(node) && !this.isTree(node);
 };
 
-RadialDepthFirstToadSearch.prototype.isTree = function(node) {
+RadialBreadthFirstToadSearch.prototype.isTree = function(node) {
     for(var i = 0; i < this.trees.length; i++) {
         if (this.equal(node, this.trees[i])) {
             return true;
@@ -50,11 +53,11 @@ RadialDepthFirstToadSearch.prototype.isTree = function(node) {
     return false;
 };
 
-RadialDepthFirstToadSearch.prototype.isInBorders = function(node) {
-    return node.ring > 0 && node.ring < 11 && node.segment > 0 && node.segment < 17;
+RadialBreadthFirstToadSearch.prototype.isInBorders = function(node) {
+    return node.ring > 0 && node.ring < 11 && node.sector > 0 && node.sector < 17;
 };
 
-RadialDepthFirstToadSearch.prototype.getNextNodes = function(node) {
+RadialBreadthFirstToadSearch.prototype.getNextNodes = function(node) {
     var nextNodes = [];
     var notValidatedNodes = this.getNotValidatedNextNodes(node);
     for(var i = 0; i < notValidatedNodes.length; i++) {
@@ -67,79 +70,73 @@ RadialDepthFirstToadSearch.prototype.getNextNodes = function(node) {
 };
 
 
-RadialDepthFirstToadSearch.prototype.getNotValidatedNextNodes = function(node) {
+RadialBreadthFirstToadSearch.prototype.getNotValidatedNextNodes = function(node) {
     return [
         this.getStrightJumpNode(node),
-        this.getStrightToCenterJumpNode(node),
         this.getStrightFromCenterJumpNode(node),
-        this.getToCenterJumpNode(node),
+        this.getStrightToCenterJumpNode(node),
         this.getFromCenterJumpNode(node),
+        this.getToCenterJumpNode(node)
+
     ];
 };
 
-RadialDepthFirstToadSearch.prototype.prepareNode = function(node) {
-    var cachedNode = this.getNodeFromCache(node.ring, node.segment);
+RadialBreadthFirstToadSearch.prototype.prepareNode = function(node) {
+    var cachedNode = this.getNodeFromCache(node.ring, node.sector);
     if(cachedNode) {
-        if (!cachedNode.parents) {
-            cachedNode.parents = [];
-        }
-        if(!cachedNode.parents.indexOf(node.parents[0])) {
-            cachedNode.parents.push(node.parents[0]);
-        }
         return cachedNode;
     }
     this.putNodeToCache(node);
     return node;
 };
 
-RadialDepthFirstToadSearch.prototype.createNode = function(parent, ring, segment) {
+RadialBreadthFirstToadSearch.prototype.createNode = function(parent, ring, sector) {
     return {
         ring: ring,
-        segment: segment > 16 ? segment - 16 : segment,
-        parents: [parent]
+        sector: sector > 16 ? sector - 16 : sector
     };
 };
 
-RadialDepthFirstToadSearch.prototype.getNodeFromCache = function(ring, segment) {
-    var segments = this.nodesMap[ring];
-    if (segments) {
-        return segments[segment];
+RadialBreadthFirstToadSearch.prototype.getNodeFromCache = function(ring, sector) {
+    var sectors = this.nodesMap[ring];
+    if (sectors) {
+        return sectors[sector];
     }
     return null;
 };
 
-RadialDepthFirstToadSearch.prototype.putNodeToCache = function(node) {
-    var segments = this.nodesMap[node.ring];
-    if (segments) {
-        segments[node.segment] = node;
+RadialBreadthFirstToadSearch.prototype.putNodeToCache = function(node) {
+    var sectors = this.nodesMap[node.ring];
+    if (sectors) {
+        sectors[node.sector] = node;
     } else {
         this.nodesMap[node.ring] = {};
-        this.nodesMap[node.ring][node.segment] = node;
+        this.nodesMap[node.ring][node.sector] = node;
     }
 };
 
 
-RadialDepthFirstToadSearch.prototype.getStrightJumpNode = function(node) {
-    return this.createNode(node, node.ring, node.segment + 3);
+RadialBreadthFirstToadSearch.prototype.getStrightJumpNode = function(node) {
+    return this.createNode(node, node.ring, node.sector + 3);
 };
 
-RadialDepthFirstToadSearch.prototype.getStrightToCenterJumpNode = function(node) {
-    return this.createNode(node, node.ring - 1, node.segment + 2);
+RadialBreadthFirstToadSearch.prototype.getStrightToCenterJumpNode = function(node) {
+    return this.createNode(node, node.ring - 1, node.sector + 2);
 };
 
-RadialDepthFirstToadSearch.prototype.getStrightFromCenterJumpNode = function(node) {
-    return this.createNode(node, node.ring + 1, node.segment + 2);
+RadialBreadthFirstToadSearch.prototype.getStrightFromCenterJumpNode = function(node) {
+    return this.createNode(node, node.ring + 1, node.sector + 2);
 };
 
-RadialDepthFirstToadSearch.prototype.getToCenterJumpNode = function(node) {
-    return this.createNode(node, node.ring - 2, node.segment + 1);
+RadialBreadthFirstToadSearch.prototype.getToCenterJumpNode = function(node) {
+    return this.createNode(node, node.ring - 2, node.sector + 1);
 };
 
-RadialDepthFirstToadSearch.prototype.getFromCenterJumpNode = function(node) {
-    return this.createNode(node, node.ring + 2, node.segment + 1);
+RadialBreadthFirstToadSearch.prototype.getFromCenterJumpNode = function(node) {
+    return this.createNode(node, node.ring + 2, node.sector + 1);
 };
 
-RadialDepthFirstToadSearch.prototype.isFound = function(node) {
+RadialBreadthFirstToadSearch.prototype.isFound = function(node) {
     if (node === null) {
         return false;
     }
@@ -152,7 +149,7 @@ RadialDepthFirstToadSearch.prototype.isFound = function(node) {
     return this.matches(node);
 };
 
-RadialDepthFirstToadSearch.prototype.search = function() {
+RadialBreadthFirstToadSearch.prototype.search_ = function() {
     var root = this.startNode;
 
     if (this.isFound(root)) {
@@ -179,12 +176,98 @@ RadialDepthFirstToadSearch.prototype.search = function() {
     return false;
 };
 
-RadialDepthFirstToadSearch.prototype.getPath = function() {
+RadialBreadthFirstToadSearch.prototype.search = function() {
+    var root = this.startNode;
+    root.distance = 0;
+    root.color = this.GREY;
+    root.parent = null;
+    this.queue.push(root);
+
+    while (this.queue.length !== 0) {
+        var node = this.queue.shift();
+
+        var nextNodes = this.getNextNodes(node);
+        for(var i = 0; i < nextNodes.length; i++) {
+            var nextNode = nextNodes[i];
+            if (!nextNode.color) {
+                nextNode.color = this.GREY;
+                nextNode.distance = node.distance + 1;
+                nextNode.parent = node;
+                this.queue.push(nextNode);
+            }
+            if (this.matches(nextNode)) {
+                this.success = true;
+                this.successNode = nextNode;
+                this.finished();
+                return true;
+            }
+        }
+        node.color = this.BLACK;
+    }
+
+    this.success = false;
+    this.finished();
+    return false;
+};
+
+RadialBreadthFirstToadSearch.prototype.search_with_interval = function(delay) {
+    delay = delay || 500;
+    var root = this.startNode;
+    root.distance = 0;
+    root.color = this.GREY;
+    root.parent = null;
+    this.queue.push(root);
+    this.stepPrinter(root);
+
+    this.nextStepTimeout = setTimeout(this.search_step.bind(this, delay), delay);
+};
+
+RadialBreadthFirstToadSearch.prototype.cancelSearchWithInterval = function() {
+    clearTimeout(this.nextStepTimeout);
+};
+
+
+
+RadialBreadthFirstToadSearch.prototype.search_step = function(delay) {
+    if (this.queue.length !== 0) {
+        var node = this.queue.shift();
+
+        var nextNodes = this.getNextNodes(node);
+        for(var i = 0; i < nextNodes.length; i++) {
+            var nextNode = nextNodes[i];
+            if (!nextNode.color) {
+                nextNode.color = this.GREY;
+                nextNode.distance = node.distance + 1;
+                nextNode.parent = node;
+                this.stepPrinter(nextNode);
+                this.queue.push(nextNode);
+            }
+            if (this.matches(nextNode)) {
+                this.success = true;
+                this.successNode = nextNode;
+                this.finished();
+                return true;
+            }
+        }
+        node.color = this.BLACK;
+        this.stepPrinter(node);
+        this.nextStepTimeout = setTimeout(this.search_step.bind(this, delay), delay);
+    } else {
+        this.finished();
+        this.success = false;
+        return false;
+    }
+};
+
+RadialBreadthFirstToadSearch.prototype.stepPrinter = function() {};
+RadialBreadthFirstToadSearch.prototype.finished = function() {};
+
+RadialBreadthFirstToadSearch.prototype.getPath_ = function() {
     var path = [];
     var node = this.successNode;
     
     while(node.parents && node.parents.length > 0) {
-        path.unshift([node.ring, node.segment]);
+        path.unshift([node.ring, node.sector]);
         if(node.parents.length > 1) {
             console.log(node.parents.length);
         }
@@ -192,12 +275,25 @@ RadialDepthFirstToadSearch.prototype.getPath = function() {
     }
     
     if (this.success) {
-        path.unshift([this.startNode.ring, this.startNode.segment]);
+        path.unshift([this.startNode.ring, this.startNode.sector]);
     }
     return path;
 };
 
+RadialBreadthFirstToadSearch.prototype.getPath = function() {
+    var path = [];
+    var node = this.successNode;
 
+    while(node && node.parent) {
+        path.unshift([node.ring, node.sector]);
+        node = node.parent;
+    }
+    
+    if (this.success) {
+        path.unshift([this.startNode.ring, this.startNode.sector]);
+    }
+    return path;
+};
 
 
 
