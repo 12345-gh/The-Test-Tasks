@@ -1,0 +1,31 @@
+2015-10-10T21:08:29.153+0300 I JOURNAL  [initandlisten] journal dir=E:\github\NodeJSExpressMongoDB\data\db\journal
+2015-10-10T21:08:29.153+0300 I JOURNAL  [initandlisten] recover : no journal files present, no recovery needed
+2015-10-10T21:08:29.181+0300 I JOURNAL  [durability] Durability thread started
+2015-10-10T21:08:29.181+0300 I JOURNAL  [journal writer] Journal writer thread started
+2015-10-10T21:08:29.331+0300 I CONTROL  [initandlisten] MongoDB starting : pid=2308 port=27017 dbpath=E:\github\NodeJSExpressMongoDB\data\db 64-bit host=MyPC
+2015-10-10T21:08:29.331+0300 I CONTROL  [initandlisten] targetMinOS: Windows 7/Windows Server 2008 R2
+2015-10-10T21:08:29.332+0300 I CONTROL  [initandlisten] db version v3.0.4
+2015-10-10T21:08:29.332+0300 I CONTROL  [initandlisten] git version: 0481c958daeb2969800511e7475dc66986fa9ed5
+2015-10-10T21:08:29.332+0300 I CONTROL  [initandlisten] OpenSSL version: OpenSSL 1.0.1m-fips 19 Mar 2015
+2015-10-10T21:08:29.333+0300 I CONTROL  [initandlisten] build info: windows sys.getwindowsversion(major=6, minor=1, build=7601, platform=2, service_pack='Service Pack 1') BOOST_LIB_VERSION=1_49
+2015-10-10T21:08:29.333+0300 I CONTROL  [initandlisten] allocator: tcmalloc
+2015-10-10T21:08:29.333+0300 I CONTROL  [initandlisten] options: { config: "C:\Program Files\MongoDB\Server\3.0\bin\mongod.cfg", storage: { dbPath: "E:\github\NodeJSExpressMongoDB\data\db" }, systemLog: { destination: "file", path: "E:\github\NodeJSExpressMongoDB\data\log\mongod.log" } }
+2015-10-10T21:08:29.393+0300 I NETWORK  [initandlisten] waiting for connections on port 27017
+2015-10-10T21:08:38.488+0300 I CONTROL  Ctrl-C signal
+2015-10-10T21:08:38.488+0300 I CONTROL  [consoleTerminate] got CTRL_C_EVENT, will terminate after current cmd ends
+2015-10-10T21:08:38.488+0300 I CONTROL  [consoleTerminate] now exiting
+2015-10-10T21:08:38.488+0300 I NETWORK  [consoleTerminate] shutdown: going to close listening sockets...
+2015-10-10T21:08:38.488+0300 I NETWORK  [consoleTerminate] closing listening socket: 500
+2015-10-10T21:08:38.488+0300 I NETWORK  [consoleTerminate] shutdown: going to flush diaglog...
+2015-10-10T21:08:38.489+0300 I NETWORK  [consoleTerminate] shutdown: going to close sockets...
+2015-10-10T21:08:38.489+0300 I STORAGE  [consoleTerminate] shutdown: waiting for fs preallocator...
+2015-10-10T21:08:38.489+0300 I STORAGE  [consoleTerminate] shutdown: final commit...
+2015-10-10T21:08:38.571+0300 I JOURNAL  [consoleTerminate] journalCleanup...
+2015-10-10T21:08:38.601+0300 I JOURNAL  [consoleTerminate] removeJournalFiles
+2015-10-10T21:08:38.602+0300 I JOURNAL  [consoleTerminate] Terminating durability thread ...
+2015-10-10T21:08:38.695+0300 I JOURNAL  [journal writer] Journal writer thread stopped
+2015-10-10T21:08:38.695+0300 I JOURNAL  [durability] Durability thread stopped
+2015-10-10T21:08:38.696+0300 I STORAGE  [consoleTerminate] shutdown: closing all files...
+2015-10-10T21:08:38.701+0300 I STORAGE  [consoleTerminate] closeAllFiles() finished
+2015-10-10T21:08:38.702+0300 I STORAGE  [consoleTerminate] shutdown: removing fs lock...
+2015-10-10T21:08:38.702+0300 I CONTROL  [consoleTerminate] dbexit:  rc: 12

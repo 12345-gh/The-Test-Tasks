@@ -1,0 +1,61 @@
+2015-10-10T21:06:36.018+0300 I JOURNAL  [initandlisten] journal dir=E:\github\NodeJSExpressMongoDB\data\db\journal
+2015-10-10T21:06:36.020+0300 I JOURNAL  [initandlisten] recover : no journal files present, no recovery needed
+2015-10-10T21:06:36.048+0300 I JOURNAL  [durability] Durability thread started
+2015-10-10T21:06:36.048+0300 I JOURNAL  [journal writer] Journal writer thread started
+2015-10-10T21:06:36.211+0300 I CONTROL  [initandlisten] MongoDB starting : pid=4900 port=27017 dbpath=E:\github\NodeJSExpressMongoDB\data\db 64-bit host=MyPC
+2015-10-10T21:06:36.211+0300 I CONTROL  [initandlisten] targetMinOS: Windows 7/Windows Server 2008 R2
+2015-10-10T21:06:36.211+0300 I CONTROL  [initandlisten] db version v3.0.4
+2015-10-10T21:06:36.212+0300 I CONTROL  [initandlisten] git version: 0481c958daeb2969800511e7475dc66986fa9ed5
+2015-10-10T21:06:36.212+0300 I CONTROL  [initandlisten] OpenSSL version: OpenSSL 1.0.1m-fips 19 Mar 2015
+2015-10-10T21:06:36.212+0300 I CONTROL  [initandlisten] build info: windows sys.getwindowsversion(major=6, minor=1, build=7601, platform=2, service_pack='Service Pack 1') BOOST_LIB_VERSION=1_49
+2015-10-10T21:06:36.212+0300 I CONTROL  [initandlisten] allocator: tcmalloc
+2015-10-10T21:06:36.212+0300 I CONTROL  [initandlisten] options: { config: "C:\Program Files\MongoDB\Server\3.0\bin\mongod.cfg", storage: { dbPath: "E:\github\NodeJSExpressMongoDB\data\db" }, systemLog: { destination: "file", path: "E:\github\NodeJSExpressMongoDB\data\log\mongod.log" } }
+2015-10-10T21:06:36.213+0300 I INDEX    [initandlisten] allocating new ns file E:\github\NodeJSExpressMongoDB\data\db\local.ns, filling with zeroes...
+2015-10-10T21:06:36.678+0300 I STORAGE  [FileAllocator] allocating new datafile E:\github\NodeJSExpressMongoDB\data\db\local.0, filling with zeroes...
+2015-10-10T21:06:36.679+0300 I STORAGE  [FileAllocator] creating directory E:\github\NodeJSExpressMongoDB\data\db\_tmp
+2015-10-10T21:06:36.686+0300 I STORAGE  [FileAllocator] done allocating datafile E:\github\NodeJSExpressMongoDB\data\db\local.0, size: 64MB,  took 0.006 secs
+2015-10-10T21:06:36.704+0300 I NETWORK  [initandlisten] waiting for connections on port 27017
+2015-10-10T21:07:03.268+0300 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:56512 #1 (1 connection now open)
+2015-10-10T21:07:19.306+0300 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:56561 #2 (2 connections now open)
+2015-10-10T21:07:46.223+0300 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:56646 #3 (3 connections now open)
+2015-10-10T21:07:46.224+0300 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:56647 #4 (4 connections now open)
+2015-10-10T21:07:46.224+0300 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:56648 #5 (5 connections now open)
+2015-10-10T21:07:46.225+0300 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:56649 #6 (6 connections now open)
+2015-10-10T21:07:46.225+0300 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:56650 #7 (7 connections now open)
+2015-10-10T21:07:46.249+0300 I INDEX    [conn5] allocating new ns file E:\github\NodeJSExpressMongoDB\data\db\TestDB.ns, filling with zeroes...
+2015-10-10T21:07:46.611+0300 I STORAGE  [FileAllocator] allocating new datafile E:\github\NodeJSExpressMongoDB\data\db\TestDB.0, filling with zeroes...
+2015-10-10T21:07:46.621+0300 I STORAGE  [FileAllocator] done allocating datafile E:\github\NodeJSExpressMongoDB\data\db\TestDB.0, size: 64MB,  took 0.008 secs
+2015-10-10T21:07:46.642+0300 I INDEX    [conn5] build index on: TestDB.users properties: { v: 1, unique: true, key: { name: 1 }, name: "name_1", ns: "TestDB.users", background: true, safe: null }
+2015-10-10T21:07:46.642+0300 I INDEX    [conn5] build index done.  scanned 0 total records. 0 secs
+2015-10-10T21:07:46.643+0300 I COMMAND  [conn5] command TestDB.$cmd command: createIndexes { createIndexes: "users", indexes: [ { name: "name_1", key: { name: 1 }, unique: true, background: true, safe: null } ], writeConcern: { w: 1 } } keyUpdates:0 writeConflicts:0 numYields:0 reslen:113 locks:{ Global: { acquireCount: { r: 1, w: 1 } }, MMAPV1Journal: { acquireCount: { w: 8 }, acquireWaitCount: { w: 2 }, timeAcquiringMicros: { w: 584 } }, Database: { acquireCount: { w: 1, W: 2 } }, Collection: { acquireCount: { W: 1 } }, Metadata: { acquireCount: { W: 5 } } } 394ms
+2015-10-10T21:07:46.659+0300 I INDEX    [conn7] build index on: TestDB.users properties: { v: 1, unique: true, key: { email: 1 }, name: "email_1", ns: "TestDB.users", background: true, safe: null }
+2015-10-10T21:07:46.659+0300 I INDEX    [conn7] build index done.  scanned 0 total records. 0 secs
+2015-10-10T21:07:55.740+0300 I NETWORK  [conn7] end connection 127.0.0.1:56650 (6 connections now open)
+2015-10-10T21:07:55.741+0300 I NETWORK  [conn4] end connection 127.0.0.1:56647 (5 connections now open)
+2015-10-10T21:07:55.741+0300 I NETWORK  [conn3] end connection 127.0.0.1:56646 (5 connections now open)
+2015-10-10T21:07:55.741+0300 I NETWORK  [conn5] end connection 127.0.0.1:56648 (3 connections now open)
+2015-10-10T21:07:55.741+0300 I NETWORK  [conn6] end connection 127.0.0.1:56649 (3 connections now open)
+2015-10-10T21:08:00.479+0300 I NETWORK  [conn1] end connection 127.0.0.1:56512 (1 connection now open)
+2015-10-10T21:08:05.823+0300 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:56709 #8 (2 connections now open)
+2015-10-10T21:08:05.837+0300 I NETWORK  [initandlisten] connection accepted from 127.0.0.1:56710 #9 (3 connections now open)
+2015-10-10T21:08:11.180+0300 I CONTROL  Ctrl-C signal
+2015-10-10T21:08:11.180+0300 I CONTROL  [consoleTerminate] got CTRL_C_EVENT, will terminate after current cmd ends
+2015-10-10T21:08:11.180+0300 I CONTROL  [consoleTerminate] now exiting
+2015-10-10T21:08:11.180+0300 I NETWORK  [consoleTerminate] shutdown: going to close listening sockets...
+2015-10-10T21:08:11.181+0300 I NETWORK  [consoleTerminate] closing listening socket: 488
+2015-10-10T21:08:11.181+0300 I NETWORK  [consoleTerminate] shutdown: going to flush diaglog...
+2015-10-10T21:08:11.181+0300 I NETWORK  [consoleTerminate] shutdown: going to close sockets...
+2015-10-10T21:08:11.181+0300 I STORAGE  [consoleTerminate] shutdown: waiting for fs preallocator...
+2015-10-10T21:08:11.181+0300 I STORAGE  [consoleTerminate] shutdown: final commit...
+2015-10-10T21:08:11.181+0300 I NETWORK  [conn2] end connection 127.0.0.1:56561 (2 connections now open)
+2015-10-10T21:08:11.182+0300 I NETWORK  [conn9] end connection 127.0.0.1:56710 (2 connections now open)
+2015-10-10T21:08:11.182+0300 I NETWORK  [conn8] end connection 127.0.0.1:56709 (1 connection now open)
+2015-10-10T21:08:11.290+0300 I JOURNAL  [consoleTerminate] journalCleanup...
+2015-10-10T21:08:11.333+0300 I JOURNAL  [consoleTerminate] removeJournalFiles
+2015-10-10T21:08:11.334+0300 I JOURNAL  [consoleTerminate] Terminating durability thread ...
+2015-10-10T21:08:11.387+0300 I JOURNAL  [journal writer] Journal writer thread stopped
+2015-10-10T21:08:11.387+0300 I JOURNAL  [durability] Durability thread stopped
+2015-10-10T21:08:11.388+0300 I STORAGE  [consoleTerminate] shutdown: closing all files...
+2015-10-10T21:08:11.397+0300 I STORAGE  [consoleTerminate] closeAllFiles() finished
+2015-10-10T21:08:11.397+0300 I STORAGE  [consoleTerminate] shutdown: removing fs lock...
+2015-10-10T21:08:11.398+0300 I CONTROL  [consoleTerminate] dbexit:  rc: 12
