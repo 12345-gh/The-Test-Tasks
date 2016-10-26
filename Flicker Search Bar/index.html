@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Flickr Search Bar</title>
+
+</head>
+<body>
+<header class="island">
+    <h1>Flickr Search Bar</h1>
+    <form class="js-form-search form-search" action="/search" method="get" role="search">
+        <label for="query">Search:</label>
+        <input type="search" name="query" id="query" placeholder="Search" required />
+        <input type="submit" value="Search" />
+    </form>
+</header>
+
+<div class="image-wrapper">
+    <ul class="js-image-list"></ul>
+</div>
+
+<script src="./bundle.js"></script>
+</body>
+</html>
